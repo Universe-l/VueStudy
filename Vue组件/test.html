@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue父子组件传值</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <counter :count="0" @change="handleChange"></counter>
+        <counter :count="1" @change="handleChange"></counter>
+        {{total}}
+    </div>
+
+    <script>
+        //局部组件
+        var counter = {
+            template: "<div @click='handleClick'>{{number}}</div>",
+            props: ['count'],
+            data: function() {
+                return {
+                    number: this.count
+                }
+            },
+            methods: {
+                handleClick: function() {
+                    this.number ++;
+                    this.$emit('change',1)
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el: "#root", //vue实例的挂载目标
+            data:{
+               total: 1
+            },
+            components: {
+                counter: counter,
+            },
+            methods: {
+                handleChange: function(step) {
+                    this.total += step;
+                }
+            }
+        })
+        
+    </script>
+</body>
+</html>
