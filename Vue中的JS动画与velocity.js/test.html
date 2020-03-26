@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue中JS动画和velocity.js</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <transition name="fade"
+          @before-enter = "handleBeforeEnter"
+          @enter = "handleEnter"
+          @after-enter = "handleAfterEnter"
+        >
+            <h1 v-show="show">hello world</h1>
+        </transition>
+        <button @click="handleClick">切换</button>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#root",
+            data: {
+                show: true,
+            },
+            methods: {
+                handleClick: function() {
+                    this.show = !this.show;
+                },
+                handleBeforeEnter: function(el) {
+                    el.style.color = 'red';
+                    // el指的是<transition>标签包含的div
+                },
+                handleEnter: function(el,done) {
+                    setTimeout(() => {
+                        el.style.color = 'green'
+                    },2000);
+                    setTimeout(() => {
+                        done()
+                    },4000)
+                },
+                handleAfterEnter: function(el) {
+                    el.style.color = 'black';
+                }
+            }
+        })
+        // js入场动画函数钩子：before-enter enter after-enter
+        // js出场动画函数钩子：before-leave leave after-enter
+    </script>
+</body>
+</html>
