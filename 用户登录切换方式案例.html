@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="display">
+            <label>用户名</label>
+            <input type="text" placeholder="用户名" id="username" key="username" />
+        </div>
+        <div v-else>
+            <label>用户邮箱</label>
+            <input type="email" placeholder="用户邮箱" id="email" key="email" />
+        </div>
+        <button @click="handleClick">切换方式</button>
+        <p>vue进行DOM渲染时会先把他渲染成一个虚拟DOM，会尽可能的复用已存在的元素，
+            而不是重新创建一个元素
+        </p>
+        <p>可以给input框加一个key属性，如果两个key值一样，可以复用，如果不一样则需要
+            重新创建一个input框。
+        </p>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                display: true
+            },
+            methods: {
+                handleClick: function() {
+                    this.display = !this.display
+                }
+            }
+        })
+    </script>
+</body>
+</html>

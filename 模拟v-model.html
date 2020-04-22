@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-model实现 -->
+        <input v-model="message" />
+        <p>{{message}}</p>
+
+        <!-- v-bind 和 v-on 模拟实现 v-model -->
+        <input :value="message2" @input="handleInput" id="input2" />
+        <p>{{message2}}</p>
+
+        <p>
+            input输入框事件：（1）change事件在input输入框失去焦点的时候触发
+            （2）input事件用户输入时触发，元素值发生变化时立即触发
+        </p>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+               message: '1',
+               message2: '2'
+            },
+            methods: {
+                handleInput: function() {
+                    this.message2 = document.getElementById('input2').value
+                }
+            }
+        })
+    </script>
+</body>
+</html>
