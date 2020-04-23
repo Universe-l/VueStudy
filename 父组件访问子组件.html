@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>父组件访问子组件</title>
+</head>
+<body>
+    <div id="app">
+        <p>父组件可以通过$children或$refs方法来访问子组件</p>
+        
+        <!-- 通过$children访问，注意$children是一个数组 -->
+        <cpn></cpn>
+        <!-- 通过$refs访问,$refs.名称-->
+        <cpn ref="cpn2"></cpn>
+        <button @click="onclick">点击</button>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            methods: {
+                onclick: function() {
+                    this.$children[0].showMessage()
+                    console.log(this.$children[0].info)
+                    console.log(this.$refs.cpn2.showMessage())
+                }
+            },
+            components: {
+                cpn: {
+                    template: '<div>我是子组件</div>',
+                    data () {
+                        return {
+                            info: {
+                                id: 001,
+                                name: '$children'
+                            }
+                        }
+                    },
+                    methods: {
+                        showMessage: function() {
+                            console.log('showMessage')
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

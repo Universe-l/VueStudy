@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>子组件访问父组件</title>
+</head>
+<body>
+    <div id="app">
+        <p>子组件可以通过$parent方法来访问父组件，通过$root访问根实例</p>
+        
+        <cpn></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <p>我是子组件</p>
+            <button @click="onclik"></button>
+        </div>
+    </template>
+
+    <script src="vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    methods: {
+                        onclik: function() {
+                            console.log(this.$parent)
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
